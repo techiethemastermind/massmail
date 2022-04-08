@@ -75,6 +75,18 @@ class SubscriberController extends Controller
         ], 200);
     }
 
+    /**
+     * Delete a Subscriber
+     */
+    public function destroy($id)
+    {
+        Subscriber::where('id', $id)->delete();
+
+        return response()->json([
+            'success' => true
+        ], 200);
+    }
+
     public function sendEmail()
     {
         $items = Subscriber::where('status', 1)->get();
@@ -110,17 +122,21 @@ class SubscriberController extends Controller
         $data = array_map('str_getcsv', file($path));
 
         foreach($data as $item) {
-            $email = trim($item[0]);
-            $subscribers = Subscriber::where('email', $email)->count();
+            $name  = trim($item[0]);
+            $email = trim($item[1]);
+            
+            if ($email != '') {
+                $subscribers = Subscriber::where('email', $email)->count();
 
-            if($subscribers < 1) {
-
-                $insertData = [
-                    'email' => $email,
-                    'name'  => 'customer'
-                ];
-
-                Subscriber::create($insertData);
+                if($subscribers < 1) {
+    
+                    $insertData = [
+                        'name'  => $name,
+                        'email' => $email
+                    ];
+    
+                    Subscriber::create($insertData);
+                }
             }
         }
 

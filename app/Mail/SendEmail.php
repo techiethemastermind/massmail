@@ -30,7 +30,12 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        $template = EmailTemplate::where('slug', 'contact')->where('published', 1)->first();
+        if (isset($this->details['type'])) {
+            $template = EmailTemplate::where('id', $this->details['template_id'])->first();
+        } else {
+            $template = EmailTemplate::where('slug', 'contact')->where('published', 1)->first();
+        }
+        
         $html_body = $template->html_content;
         $html_body = str_replace('{customer}', $this->details['name'], $html_body);
         $content = $this->getHeader() . $html_body . $this->getFooter();

@@ -99,7 +99,7 @@ class SubscriberController extends Controller
         // Sending Emails
         foreach($items as $item) {
             $details['email'] = $item->email;
-            $details['name']  = $item->name;            
+            $details['name']  = $item->name;
             dispatch(new SendEmailJob($details));
         }
 

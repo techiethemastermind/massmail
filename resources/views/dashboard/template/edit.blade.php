@@ -76,6 +76,20 @@
                             {!! Form::close() !!}
                         </div>
                     </div>
+
+                    <!-- Test Email sending -->
+                    <div class="page-separator mt-5">
+                        <div class="page-separator__text">Email Test</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="card card-body">
+                            <div class="d-flex">
+                                <input type="email" name="test_email" id="test_email" class="form-control flex mr-3" placeholder="Email Address">
+                                <button id="btn_test" class="btn btn-accent">Send Test Email</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-6">
@@ -255,6 +269,26 @@
                         console.log(err);
                     }
                 });
+            });
+
+            $('#btn_test').on('click', function() {
+
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route("template.test") }}',
+                    data: {
+                        template_id: '{{ $template->id }}',
+                        email: $('#test_email').val()
+                    },
+                    success: function(res) {
+                        if(res.success) {
+                            swal('Success!', 'Test Email Sent!', 'success');
+                        }
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                })
             });
         });
 

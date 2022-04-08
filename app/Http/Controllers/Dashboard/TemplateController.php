@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EmailTemplate;
+use App\Mail\SendEmail;
+use Mail;
 
 class TemplateController extends Controller
 {
@@ -103,5 +105,31 @@ class TemplateController extends Controller
             'success' => true,
             'message' => $message
         ]);
+    }
+
+    /**
+     * Send Test Email
+     */
+    public function sendTestEmail(Request $request)
+    {
+        $data = [
+            'type' => 'test',
+            'template_id' => $request->template_id,
+            'email' => $request->email
+        ];
+
+        try {
+            Mail::to($data['email'])->send(new SendEmail($data));
+
+            return response()->json([
+                'success' => true
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

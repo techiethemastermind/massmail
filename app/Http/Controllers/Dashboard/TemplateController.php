@@ -115,7 +115,8 @@ class TemplateController extends Controller
         $data = [
             'type' => 'test',
             'template_id' => $request->template_id,
-            'email' => $request->email
+            'email' => $request->email,
+            'name'  => 'Test Name'
         ];
 
         try {

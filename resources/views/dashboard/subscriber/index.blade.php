@@ -23,8 +23,10 @@
 
             <div class="row" role="tablist">
                 <div class="button-list">
-                    <button type="button" class="btn btn-outline-primary" id="btn_addnew">Add New Subscriber</button>
-                    <button type="button" class="btn btn-outline-accent" data-toggle="modal" data-target="#csvUploadModal">Import CSV</button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#newSubscriberModal">
+                        Add new</button>
+                    <button type="button" class="btn btn-outline-accent" data-toggle="modal" data-target="#csvUploadModal">
+                        Import CSV</button>
                     @if(auth()->user()->job_status == 0)
                     <button type="button" class="btn btn-outline-dark" id="btn_sendmail">Send Emails</button>
                     @else
@@ -50,6 +52,7 @@
                                 <th> Email Address </th>
                                 <th> User Name </th>
                                 <th> Status </th>
+                                <th> Action </th>
                             </tr>
                         </thead>
 
@@ -70,6 +73,16 @@
                                             <span class="indicator-line rounded bg-warning"></span>
                                             @endif
                                         </div>
+                                    </td>
+                                    <td>
+                                        @if($item->status == 0)
+                                        <button class="btn btn-sm btn-success" data-type="status" data-action="active" data-id="{{$item->id}}">
+                                            <i class="material-icons">arrow_upward</i></button>
+                                        @else
+                                        <button class="btn btn-sm btn-info" data-type="status" data-action="deactive" data-id="{{$item->id}}">
+                                            <i class="material-icons">arrow_downward</i></button>
+                                        @endif
+                                        @include('layouts.buttons.delete', ['delete_route' => route('subscriber.destroy', $item->id)])
                                     </td>
                                 </tr>
                             @endforeach
@@ -142,6 +155,39 @@
     </div>
 </div>
 
+<!-- Modal Form -->
+<div class="modal fade" id="newSubscriberModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">New Subscriber</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form-horizontal" method="POST" action="{{ route('subscriber.store') }}"
+                    enctype="multipart/form-data">{{ csrf_field() }}
+                <div class="modal-body mx-3">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" value="customer" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-right">
+                        <button type="button" id="btn_new_subscriber" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('after-scripts')
@@ -150,7 +196,50 @@
 
     $(function() {
 
-        $('#btn_csv_import').on('click', function(e) {
+        $('#btn_new_subscriber').on('click', (e) => {
+            e.preventDefault();
+
+            if($('#email').val() == '') {
+                $('#email').focus();
+                return false;
+            }
+
+            $('#newSubscriberModal form').ajaxSubmit({
+                success: (res) => {
+                    if(res.success) {
+                        $('#newSubscriberModal').modal('toggle');
+                        swal("Success!", 'New subscriber successfully added', "success");
+                    } else {
+                        swal("Error!", res.message, "error");
+                    }
+                },
+                error: (err) => {
+                    swal("Error!", JSON.parse(err.responseText).message, "error");
+                }
+            });
+        });
+
+        $('button[data-type=status]').on('click', function(e) {
+            let subscriber_id = $(this).attr('data-id');
+            let action_type = $(this).attr('data-action');
+            let status = (action_type == 'active') ? 1 : 0;
+
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('subscriber.status') }}",
+                data: {
+                    id: subscriber_id,
+                    status: status
+                },
+                success: function(res) {
+                    if (res.success) {
+                        swal('Success', res.message, 'success');
+                    }
+                }
+            })
+        });
+
+        $('#btn_csv_import').on('click', (e) => {
             
             e.preventDefault();
 
@@ -158,8 +247,7 @@
                 success: function(res) {
                     if(res.success) {
                         $('#csvUploadModal').modal('toggle');
-                        swal("Success!", 'Students successfully added', "success");
-                        table.ajax.reload();
+                        swal("Success!", 'Email list successfully added', "success");
                     } else {
                         swal("Error!", res.message, "error");
                     }

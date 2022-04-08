@@ -97,7 +97,7 @@
                                     <i class="material-icons">arrow_downward</i></button>
                                 @endif
                                 @include('layouts.buttons.edit', ['edit_route' => route('mailedits.edit', $template->id)])
-                                @include('layouts.buttons.delete', ['delete_route' => route('mailedits.edit', $template->id)])
+                                @include('layouts.buttons.delete', ['delete_route' => route('mailedits.destroy', $template->id)])
                             @endif
                             </td>
                         </tr>
@@ -116,7 +116,6 @@
     $(function() {
         
         // JS code here
-
         $('button[data-type=publish]').on('click', function(e) {
             let template_id = $(this).attr('data-id');
             let action_type = $(this).attr('data-action');

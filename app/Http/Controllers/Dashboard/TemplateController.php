@@ -9,6 +9,16 @@ use App\Models\EmailTemplate;
 class TemplateController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * List Email Templates
      */
     public function index()

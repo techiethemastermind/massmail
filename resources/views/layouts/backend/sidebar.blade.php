@@ -23,7 +23,7 @@
 
                 <!-- Subscribers -->
                 <li class="sidebar-menu-item {{ Request::is('subscriber') ? 'active' : '' }}">
-                    <a class="sidebar-menu-button" href="{{ route('subscriber') }}">
+                    <a class="sidebar-menu-button" href="{{ route('subscriber.index') }}">
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">alternate_email</span>
                         <span class="sidebar-menu-text">Subscribers</span>
                     </a>

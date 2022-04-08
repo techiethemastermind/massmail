@@ -25,9 +25,10 @@ Auth::routes();
 
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::get('/subscriber', [SubscriberController::class, 'index'])->name('subscriber');
+Route::resource('subscriber', SubscriberController::class);
 Route::post('/subscriber/email', [SubscriberController::class, 'sendEmail'])->name('subscribers.email.send');
 Route::post('/subscribers/import', [SubscriberController::class, 'csvImport'])->name('subscribers.import');
+Route::post('/subscriber/status', [SubscriberController::class, 'chageStatus'])->name('subscriber.status');
 
 // Setting
 Route::resource('mailedits', TemplateController::class);

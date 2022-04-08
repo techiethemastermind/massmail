@@ -265,8 +265,8 @@
                         swal('Success!', 'Email sending started', 'success');
                     }
 
-                    // $('#btn_sendmail').text('Email sending is processing');
-                    // $('#btn_sendmail').attr('disabled', 'disabled');
+                    $('#btn_sendmail').text('Email sending is processing');
+                    $('#btn_sendmail').attr('disabled', 'disabled');
                 },
                 error: function(err) {
                     console.log(err);

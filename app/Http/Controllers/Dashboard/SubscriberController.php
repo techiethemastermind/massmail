@@ -92,9 +92,9 @@ class SubscriberController extends Controller
         $items = Subscriber::where('status', 1)->get();
 
         // set job status
-        // $user_record = User::find(auth()->user()->id);
-        // $user_record->job_status = 1;
-        // $user_record->save();
+        $user_record = User::find(auth()->user()->id);
+        $user_record->job_status = 1;
+        $user_record->save();
 
         // Sending Emails
         foreach($items as $item) {

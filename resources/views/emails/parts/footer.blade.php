@@ -47,8 +47,7 @@
                                         style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 0px; padding: 10px 25px; word-break: break-word;">
                                         <div style="font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:center;color:#363A41;"
                                             align="center">
-                                            <a id="preview_footer_link" href="https://tutebuddy.com/"
-                                                style="text-decoration: underline; color: #656565; font-size: 16px; font-weight: 600;">https://tutebuddy.com</a>
+                                            
                                         </div>
                                     </td>
                                 </tr>

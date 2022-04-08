@@ -40,7 +40,8 @@ class SendEmail extends Mailable
         $html_body = str_replace('{customer}', $this->details['name'], $html_body);
         $content = $this->getHeader() . $html_body . $this->getFooter();
         
-        return $this->view('emails.sendEmail', compact('content'));
+        return $this->subject($template->subject)
+            ->view('emails.sendEmail', compact('content'));
     }
 
     function getHeader()

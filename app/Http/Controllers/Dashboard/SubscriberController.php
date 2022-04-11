@@ -123,11 +123,7 @@ class SubscriberController extends Controller
 
         foreach($data as $item) {
             $email = trim($item[0]);
-            $name  = trim($item[1]);
-
-            if ($name == '') {
-                $name = 'customer';
-            }
+            $name  = 'Customer';
             
             if ($email != '') {
                 $subscribers = Subscriber::where('email', $email)->count();

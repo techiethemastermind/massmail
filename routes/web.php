@@ -20,7 +20,7 @@ use App\Http\Controllers\Dashboard\TemplateController;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::resource('subscriber', SubscriberController::class);
 Route::post('/subscriber/email', [SubscriberController::class, 'sendEmail'])->name('subscribers.email.send');

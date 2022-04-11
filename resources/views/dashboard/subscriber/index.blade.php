@@ -44,7 +44,7 @@
             </div>
             <div class="card dashboard-area-tabs p-relative o-hidden mb-lg-32pt">
                 <div class="table" data-toggle="lists" data-lists-sort-by="js-lists-values-schedule" data-lists-sort-desc="true" data-lists-values="[&quot;js-lists-values-no&quot;]">
-                    <table class="table mb-0 thead-border-top-0 table-nowrap" data-page-length="5">
+                    <table class="table mb-0 thead-border-top-0 table-nowrap" data-page-length="50">
                         <thead>
                             <tr>
                                 <th style="width: 18px;" class="pr-0"></th>
@@ -56,11 +56,15 @@
                             </tr>
                         </thead>
 
+                        @php
+                            $pagenum = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+                        @endphp
+
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
                                     <td></td>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ ($pagenum - 1) * 50 + $loop->iteration }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>

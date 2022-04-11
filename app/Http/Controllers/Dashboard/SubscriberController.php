@@ -25,7 +25,7 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        $items = Subscriber::paginate(25);
+        $items = Subscriber::paginate(50);
         return view('dashboard.subscriber.index', compact('items'));
     }
 

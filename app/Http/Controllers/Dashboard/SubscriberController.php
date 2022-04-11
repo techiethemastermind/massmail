@@ -122,8 +122,12 @@ class SubscriberController extends Controller
         $data = array_map('str_getcsv', file($path));
 
         foreach($data as $item) {
-            $name  = trim($item[0]);
-            $email = trim($item[1]);
+            $email = trim($item[0]);
+            $name  = trim($item[1]);
+
+            if ($name == '') {
+                $name = 'customer';
+            }
             
             if ($email != '') {
                 $subscribers = Subscriber::where('email', $email)->count();

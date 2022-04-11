@@ -34,3 +34,5 @@ Route::post('mailedits/test', [TemplateController::class, 'sendTestEmail'])->nam
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/queue/run', [SubscriberController::class, 'runJob'])->name('job.run');

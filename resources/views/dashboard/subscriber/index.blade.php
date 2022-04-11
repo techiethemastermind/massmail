@@ -32,6 +32,8 @@
                     @else
                     <button type="button" class="btn btn-outline-dark" disabled>Email sending is processing</button>
                     @endif
+
+                    {{-- <button id="btn_runjob" class="btn btn-outline-primary">Run Job</button> --}}
                 </div>
             </div>
         </div>
@@ -199,6 +201,18 @@
 <script>
 
     $(function() {
+
+        $('#btn_runjob').on('click', (e) => {
+            e.preventDefault();
+
+            $.ajax({
+                method: 'GET',
+                url: "{{ route('job.run') }}",
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        })
 
         $('#btn_new_subscriber').on('click', (e) => {
             e.preventDefault();

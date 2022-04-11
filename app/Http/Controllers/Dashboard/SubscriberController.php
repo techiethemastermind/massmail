@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Subscriber;
 use App\Jobs\SendEmailJob;
 use App\Models\User;
+use Artisan;
 
 class SubscriberController extends Controller
 {
@@ -139,6 +140,15 @@ class SubscriberController extends Controller
                 }
             }
         }
+
+        return response()->json([
+            'success' => true
+        ], 200);
+    }
+
+    public function runJob()
+    {
+        Artisan::call('queue:work', ['--stop-when-empty' => true]);
 
         return response()->json([
             'success' => true

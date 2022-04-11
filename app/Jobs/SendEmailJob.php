@@ -49,6 +49,8 @@ class SendEmailJob implements ShouldQueue
                 $user_record->job_status = 0;
                 $user_record->save();
             }
+
+            sleep(10);
         }
         catch (\Exception $e)
         {

@@ -29,6 +29,8 @@ class HomeController extends Controller
         $active_num = Subscriber::where('status', 1)->count();
         $deactive_num = Subscriber::where('status', 0)->count();
 
+        dd($total_num);
+
         return view('home', compact('total_num', 'active_num', 'deactive_num'));
     }
 }

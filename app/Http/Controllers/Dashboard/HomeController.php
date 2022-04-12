@@ -25,12 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd('dfdfdf');
-        $total_num  = Subscriber::all()->count();
-        $active_num = Subscriber::where('status', 1)->count();
-        $deactive_num = Subscriber::where('status', 0)->count();
+        // $total_num  = Subscriber::all()->count();
+        // $active_num = Subscriber::where('status', 1)->count();
+        // $deactive_num = Subscriber::where('status', 0)->count();
 
-        dd($total_num);
+        $total_num  = 200000;
+        $active_num = 200000;
+        $deactive_num = 0;
 
         return view('home', compact('total_num', 'active_num', 'deactive_num'));
     }

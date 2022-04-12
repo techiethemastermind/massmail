@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Subscriber extends Model
 {
     use HasFactory;
-    public $fillable = ['email', 'name', 'status'];
+    public $fillable = ['email', 'name', 'status', 'mail_sent'];
 }

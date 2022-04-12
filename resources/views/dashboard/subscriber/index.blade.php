@@ -54,6 +54,7 @@
                                 <th> Email Address </th>
                                 <th> User Name </th>
                                 <th> Status </th>
+                                <th> Email Status </th>
                                 <th> Action </th>
                             </tr>
                         </thead>
@@ -76,6 +77,17 @@
                                             <span class="indicator-line rounded bg-primary"></span>
                                             @else
                                             <small class="js-lists-values-status text-50 mb-4pt">Deactived</small>
+                                            <span class="indicator-line rounded bg-warning"></span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            @if ($item->mail_sent == 1)
+                                            <small class="js-lists-values-status text-50 mb-4pt">Sent</small>
+                                            <span class="indicator-line rounded bg-primary"></span>
+                                            @else
+                                            <small class="js-lists-values-status text-50 mb-4pt">Not Sent</small>
                                             <span class="indicator-line rounded bg-warning"></span>
                                             @endif
                                         </div>

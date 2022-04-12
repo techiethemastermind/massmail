@@ -42,6 +42,8 @@ class SendEmailJob implements ShouldQueue
         {
             Mail::to($this->details['email'])->send($email);
 
+            Subscriber::where('email', $this->details['email'])->update(['mail_sent' => 1]);
+
             // Get last email
             $last = Subscriber::orderBy('id', 'desc')->first();
             if($this->details['email'] == $last->email) {

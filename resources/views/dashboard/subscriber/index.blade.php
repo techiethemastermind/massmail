@@ -27,11 +27,8 @@
                         Add new</button>
                     <button type="button" class="btn btn-outline-accent" data-toggle="modal" data-target="#csvUploadModal">
                         Import CSV</button>
-                    @if(auth()->user()->job_status == 0)
+                    
                     <button type="button" class="btn btn-outline-dark" id="btn_sendmail">Send Emails</button>
-                    @else
-                    <button type="button" class="btn btn-outline-dark" disabled>Email sending is processing</button>
-                    @endif
 
                     {{-- <button id="btn_runjob" class="btn btn-outline-primary">Run Job</button> --}}
                 </div>
@@ -294,9 +291,6 @@
                     if(res.success) {
                         swal('Success!', 'Email sending started', 'success');
                     }
-
-                    $('#btn_sendmail').text('Email sending is processing');
-                    $('#btn_sendmail').attr('disabled', 'disabled');
                 },
                 error: function(err) {
                     console.log(err);

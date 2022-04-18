@@ -38,16 +38,21 @@ class SendEmailJob implements ShouldQueue
     {
         $email = new SendEmail($this->details);
 
-        try 
-        {
-            Mail::to($this->details['email'])->send($email);
-            Subscriber::where('email', $this->details['email'])->update(['mail_sent' => 1]);
-            sleep(10);
-        }
-        catch (\Exception $e)
-        {
-            \Log::info($e->getMessage());
-        }
+        // Sent status
+        $ms_record = Subscriber::where('email', $this->details['email'])->first();
+
+        if($ms_record->mail_sent != 1) {
+            try 
+            {
+                Mail::to($this->details['email'])->send($email);
+                Subscriber::where('email', $this->details['email'])->update(['mail_sent' => 1]);
+                sleep(10);
+            }
+            catch (\Exception $e)
+            {
+                \Log::info($e->getMessage());
+            }
+        }  
     }
 }
 

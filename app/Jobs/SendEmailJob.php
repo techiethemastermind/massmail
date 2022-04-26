@@ -46,13 +46,13 @@ class SendEmailJob implements ShouldQueue
             {
                 Mail::to($this->details['email'])->send($email);
                 Subscriber::where('email', $this->details['email'])->update(['mail_sent' => 1]);
-                sleep(10);
+                sleep(20);
             }
             catch (\Exception $e)
             {
                 \Log::info($e->getMessage());
             }
-        }  
+        }
     }
 }
 

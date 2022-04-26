@@ -90,7 +90,9 @@ class SubscriberController extends Controller
 
     public function sendEmail()
     {
-        $items = Subscriber::where('status', 1)->get();
+        $items = Subscriber::where('status', 1)
+            ->where('mail_sent', 0)
+            ->get();
 
         // Sending Emails
         foreach($items as $item) {
